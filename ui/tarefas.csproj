@@ -1,0 +1,43 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net6.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <UseWPF>true</UseWPF>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Icones\add_18px.png" />
+    <None Remove="Icones\calendar_18px.png" />
+    <None Remove="Icones\done_18px.png" />
+    <None Remove="Icones\menu_vertical_18px.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Icones\add_18px.png" />
+    <Resource Include="Icones\calendar_18px.png" />
+    <Resource Include="Icones\done_18px.png" />
+    <Resource Include="Icones\menu_vertical_18px.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Flurl.Http" Version="3.2.4" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\shared\shared.csproj" />
+    <ProjectReference Include="..\util\util.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="View\ModalAddTarefa.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="View\ModalConfirma.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+  </ItemGroup>
+
+</Project>

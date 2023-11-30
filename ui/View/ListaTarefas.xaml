@@ -1,0 +1,92 @@
+﻿<Window x:Class="tarefas.View.ListaTarefas"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:tarefas"
+        xmlns:ct="clr-namespace:tarefas.Controls"
+        xmlns:vm="clr-namespace:tarefas.ViewModel"
+        mc:Ignorable="d"
+        Title="Lista Tarefas"
+        Height="600"
+        Width="1200">
+    <d:Window.DataContext>
+        <vm:ListaTarefasViewModel  />
+    </d:Window.DataContext>
+    <Grid x:Name="container">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+            <Border Height="60">
+                <Border.Background>
+                    <LinearGradientBrush EndPoint="0.5,1"
+                                         StartPoint="0.5,0">
+                        <GradientStop Color="#FF4E2A84" />
+                        <GradientStop Color="#FF7021A9"
+                                      Offset="1" />
+                    </LinearGradientBrush>
+                </Border.Background>
+
+            </Border>
+            <Border Grid.Row="1">
+                <Border.Background>
+                    <LinearGradientBrush EndPoint="0.5,1"
+                                         StartPoint="0.5,0">
+                        <GradientStop Color="#FF571884" />
+                        <GradientStop Color="#FF8321A9"
+                                      Offset="1" />
+                    </LinearGradientBrush>
+                </Border.Background>
+
+            </Border>
+            <ScrollViewer x:Name="scroll"
+                          Grid.Row="1"
+                          VerticalScrollBarVisibility="Disabled"
+                          HorizontalScrollBarVisibility="Auto">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="250" />
+                    </Grid.ColumnDefinitions>
+                    <ItemsControl ItemsSource="{Binding Path=tarefa_grupos, Mode=OneWay}">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <ct:TaskColumn EditarGrupoEvent="TaskColumn_EditarGrupoEvent"
+                                               ExcluirGrupoEvent="TaskColumn_ExcluirGrupoEvent"
+                                               GrupoOrdenadoEvent="TaskColumn_GrupoOrdenadoEvent"
+                                               AddTarefaEvent="TaskColumn_AddTarefaEvent"/>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <StackPanel Orientation="Horizontal" />
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                    </ItemsControl>
+                    <Button x:Name="BtAddGrupo"
+                            Click="BtAddGrupo_Click"
+                            Cursor="Hand"
+                            BorderThickness="0"
+                            VerticalAlignment="Top"
+                            Margin="8"
+                            Grid.Column="1">
+                        <StackPanel Margin="4"
+                                    Orientation="Horizontal">
+                            <Image Source="/Icones/add_18px.png"
+                                   Width="18"
+                                   Height="18"
+                                   RenderOptions.BitmapScalingMode="NearestNeighbor"
+                                   Margin="2 2 6 2" />
+                            <TextBlock Text="Adicionar"
+                                       VerticalAlignment="Center"
+                                       Foreground="#FF484848"
+                                       FontWeight="Bold" />
+                        </StackPanel>
+                    </Button>
+                </Grid>
+            </ScrollViewer>
+        </Grid>
+    </Grid>
+</Window>
