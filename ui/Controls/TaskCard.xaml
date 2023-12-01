@@ -43,13 +43,6 @@
                                    VerticalAlignment="Center" />
                     </WrapPanel>
                     <WrapPanel Grid.Column="1">
-                        <Image Source="/Icones/check_mark_18px.png"
-                               Stretch="None"
-                               Width="18"
-                               Height="18"
-                               ToolTip="Tarefa concluída"
-                               RenderOptions.BitmapScalingMode="NearestNeighbor"
-                               Visibility="{Binding concluido, Converter={StaticResource FalseToColapsedConverter}}"/>
                         <Image Source="/Icones/archive_18px.png"
                                Stretch="None"
                                Width="18"
@@ -57,7 +50,17 @@
                                ToolTip="Tarefa arquivada"
                                RenderOptions.BitmapScalingMode="NearestNeighbor"
                                Visibility="{Binding arquivado, Converter={StaticResource FalseToColapsedConverter}}"/>
-
+                        <Image Source="/Icones/check_mark_18px.png"
+                               Stretch="None"
+                               Width="18"
+                               Height="18"
+                               Margin="10,0,0,0"
+                               ToolTip="Tarefa concluída"
+                               RenderOptions.BitmapScalingMode="NearestNeighbor"
+                               Visibility="{Binding concluido, Converter={StaticResource FalseToColapsedConverter}}"/>
+                        <TextBlock Text="{Binding DataConclusao, StringFormat=d, ConverterCulture=pt-br}"
+                                   Margin="4 0"
+                                   VerticalAlignment="Center" />
                     </WrapPanel>
                 </Grid>
             </StackPanel>

@@ -28,6 +28,17 @@ namespace tarefas.ViewModel
                   }
             }
 
+            private Tarefa _original;
+            public Tarefa original
+            {
+                  get => _original;
+                  set
+                  {
+                        _original = value;
+                        OnPropertyChanged();
+                  }
+            }
+
             private Tarefa _tarefa;
             public Tarefa tarefa
             {
@@ -58,6 +69,14 @@ namespace tarefas.ViewModel
 
             private async Task  SalvarAsync(object? arg)
             {
+                  if (tarefa.concluido && !tarefa.DataConclusao.HasValue)
+                  {
+                        tarefa.DataConclusao = DateTime.Now;
+                  }
+                  else if (!tarefa.concluido)
+                  {
+                        tarefa.DataConclusao = null;
+                  }
 
                   if (tarefa.IsNew)
                   {
@@ -66,16 +85,17 @@ namespace tarefas.ViewModel
                             {
                                   if (task.Status == TaskStatus.RanToCompletion)
                                   {
-                                        tarefa.Id = task.Result.tarefa.Id; // resgatar Id inserido no registro
-                                        tarefa.Titulo = task.Result.tarefa.Titulo;
-                                        tarefa.Descricao = task.Result.tarefa.Descricao;
-                                        tarefa.ordem = task.Result.tarefa.ordem;
-                                        tarefa.DataCadastro = task.Result.tarefa.DataCadastro;
-                                        tarefa.DataConclusao = task.Result.tarefa.DataConclusao;
-                                        tarefa.concluido = task.Result.tarefa.concluido;
-                                        tarefa.arquivado = task.Result.tarefa.arquivado;
+                                        original.Id = task.Result.tarefa.Id; // resgatar Id inserido no registro
+                                        original.grupo_Id = task.Result.tarefa.grupo_Id;
+                                        original.Titulo = task.Result.tarefa.Titulo;
+                                        original.Descricao = task.Result.tarefa.Descricao;
+                                        original.ordem = task.Result.tarefa.ordem;
+                                        original.DataCadastro = task.Result.tarefa.DataCadastro;
+                                        original.DataConclusao = task.Result.tarefa.DataConclusao;
+                                        original.concluido = task.Result.tarefa.concluido;
+                                        original.arquivado = task.Result.tarefa.arquivado;
 
-                                        App.Current.Dispatcher.Invoke(() => GrupoParent.tarefas.Add(tarefa));
+                                        App.Current.Dispatcher.Invoke(() => GrupoParent.tarefas.Add(original));
 
                                         App.Current.Dispatcher.Invoke(() => CloseEvent?.Invoke(this, EventArgs.Empty));
 
@@ -94,13 +114,14 @@ namespace tarefas.ViewModel
                             {
                                   if (task.Status == TaskStatus.RanToCompletion)
                                   {
-                                        tarefa.Titulo = task.Result.tarefa.Titulo;
-                                        tarefa.Descricao = task.Result.tarefa.Descricao;
-                                        tarefa.ordem = task.Result.tarefa.ordem;
-                                        tarefa.DataCadastro = task.Result.tarefa.DataCadastro;
-                                        tarefa.DataConclusao = task.Result.tarefa.DataConclusao;
-                                        tarefa.concluido = task.Result.tarefa.concluido;
-                                        tarefa.arquivado = task.Result.tarefa.arquivado;
+                                        original.grupo_Id = task.Result.tarefa.grupo_Id;
+                                        original.Titulo = task.Result.tarefa.Titulo;
+                                        original.Descricao = task.Result.tarefa.Descricao;
+                                        original.ordem = task.Result.tarefa.ordem;
+                                        original.DataCadastro = task.Result.tarefa.DataCadastro;
+                                        original.DataConclusao = task.Result.tarefa.DataConclusao;
+                                        original.concluido = task.Result.tarefa.concluido;
+                                        original.arquivado = task.Result.tarefa.arquivado;
 
                                         App.Current.Dispatcher.Invoke(() => CloseEvent?.Invoke(this, EventArgs.Empty));
                                   }

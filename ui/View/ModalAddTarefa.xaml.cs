@@ -46,8 +46,20 @@ namespace tarefas.View
             public Panel canvas_parent { get; private set; }
             public void Show(Panel canvas_parent, string Title, Tarefa tarefa, TarefaGrupo grupoParent)
             {
+                  var copia = new Tarefa();
+                  copia.Id = tarefa.Id;
+                  copia.ordem = tarefa.ordem;
+                  copia.Titulo = tarefa.Titulo;
+                  copia.Descricao = tarefa.Descricao;
+                  copia.grupo_Id = tarefa.grupo_Id;
+                  copia.DataCadastro = tarefa.DataCadastro;
+                  copia.DataConclusao = tarefa.DataConclusao;
+                  copia.concluido = tarefa.concluido;
+                  copia.arquivado = tarefa.arquivado;
+
                   this.canvas_parent = canvas_parent;
-                  this.model.tarefa = tarefa;
+                  this.model.original = tarefa;
+                  this.model.tarefa = copia;
                   this.model.GrupoParent = grupoParent;
                   this.TbTituloModal.Text = Title;
 
