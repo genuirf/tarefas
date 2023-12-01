@@ -43,7 +43,22 @@ namespace tarefas.ViewModel
                                   {
                                         foreach (var item in task.Result.grupos)
                                         {
-                                              _tarefa_grupos.Add(new(_tarefa_grupos) { Id = item.Id, ordem = item.ordem, Descricao = item.Descricao });
+                                              TarefaGrupo grupo = new(_tarefa_grupos) { Id = item.Id, ordem = item.ordem, Descricao = item.Descricao };
+                                              _tarefa_grupos.Add(grupo);
+
+                                              Api.ListTarefa(grupo.Id).ContinueWith((task) =>
+                                              {
+                                                    if (task.Status == TaskStatus.RanToCompletion)
+                                                    {
+                                                          App.Current.Dispatcher.Invoke(() =>
+                                                          {
+                                                                foreach (var item in task.Result.tarefas)
+                                                                {
+                                                                      grupo.tarefas.Add(item);
+                                                                }
+                                                          });
+                                                    }
+                                              });
                                         }
                                   });
                             }

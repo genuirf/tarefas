@@ -56,7 +56,9 @@
                                 <ct:TaskColumn EditarGrupoEvent="TaskColumn_EditarGrupoEvent"
                                                ExcluirGrupoEvent="TaskColumn_ExcluirGrupoEvent"
                                                GrupoOrdenadoEvent="TaskColumn_GrupoOrdenadoEvent"
-                                               AddTarefaEvent="TaskColumn_AddTarefaEvent"/>
+                                               AddTarefaEvent="TaskColumn_AddTarefaEvent"
+                                               EditTarefaEvent="TaskColumn_EditTarefaEvent"
+                                               TarefaOrdenadaEvent="TaskColumn_TarefaOrdenadaEvent"/>
                             </DataTemplate>
                         </ItemsControl.ItemTemplate>
                         <ItemsControl.ItemsPanel>

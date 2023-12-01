@@ -23,20 +23,43 @@
                 <TextBlock Text="{Binding Titulo, FallbackValue='Título'}"
                            FontWeight="Bold"
                            Margin="4" />
-                <TextBlock Text="{Binding Descricao, FallbackValue='Descrição da tarefa...'}"
+                <TextBlock Text="{Binding Descricao, FallbackValue='Descrição da tarefa...', ConverterParameter=100, Converter={StaticResource StringTruncateConverter}}"
                            TextWrapping="Wrap"
                            FontWeight="Medium"
                            Margin="4" />
-                <WrapPanel Margin="4">
-                    <Image Source="/Icones/calendar_18px.png"
-                           Stretch="None"
-                           Width="18"
-                           Height="18"
-                           RenderOptions.BitmapScalingMode="NearestNeighbor"/>
-                    <TextBlock Text="{Binding DataCadastro, StringFormat=d, ConverterCulture=pt-br}" 
-                               Margin="4 0"
-                               VerticalAlignment="Center"/>
-                </WrapPanel>
+                <Grid Margin="4">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition Width="auto"/>
+                    </Grid.ColumnDefinitions>
+                    <WrapPanel>
+                        <Image Source="/Icones/calendar_18px.png"
+                               Stretch="None"
+                               Width="18"
+                               Height="18"
+                               RenderOptions.BitmapScalingMode="NearestNeighbor" />
+                        <TextBlock Text="{Binding DataCadastro, StringFormat=d, ConverterCulture=pt-br}"
+                                   Margin="4 0"
+                                   VerticalAlignment="Center" />
+                    </WrapPanel>
+                    <WrapPanel Grid.Column="1">
+                        <Image Source="/Icones/check_mark_18px.png"
+                               Stretch="None"
+                               Width="18"
+                               Height="18"
+                               ToolTip="Tarefa concluída"
+                               RenderOptions.BitmapScalingMode="NearestNeighbor"
+                               Visibility="{Binding concluido, Converter={StaticResource FalseToColapsedConverter}}"/>
+                        <Image Source="/Icones/archive_18px.png"
+                               Stretch="None"
+                               Width="18"
+                               Height="18"
+                               ToolTip="Tarefa arquivada"
+                               RenderOptions.BitmapScalingMode="NearestNeighbor"
+                               Visibility="{Binding arquivado, Converter={StaticResource FalseToColapsedConverter}}"/>
+
+                    </WrapPanel>
+                </Grid>
             </StackPanel>
         </Border>
     </Grid>

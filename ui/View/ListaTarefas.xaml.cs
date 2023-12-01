@@ -90,7 +90,7 @@ namespace tarefas.View
                   });
             }
 
-            private void TaskColumn_AddTarefaEvent(object sender, Controls.AddTarefaEventArgs e)
+            private void TaskColumn_AddTarefaEvent(object sender, Controls.AddEditTarefaEventArgs e)
             {
                   Tarefa tarefa = new();
                   tarefa.DataCadastro = DateTime.Now;
@@ -99,6 +99,44 @@ namespace tarefas.View
                   var modal = new ModalAddTarefa();
                   modal.Show(container, "Adicionar Tarefa", tarefa, e.Grupo);
 
+            }
+
+            private void TaskColumn_EditTarefaEvent(object sender, Controls.AddEditTarefaEventArgs e)
+            {
+                  var modal = new ModalAddTarefa();
+                  modal.Show(container, "Editar Tarefa",  e.Tarefa!, e.Grupo);
+            }
+
+            private void TaskColumn_TarefaOrdenadaEvent(object sender, Controls.TarefaOrdenadaEventArgs e)
+            {
+                  List<Tarefa> tarefas = new();
+                  foreach (var grupo in e.Grupos)
+                  {
+                        int index = 0;
+                        foreach (var tarefa in grupo.tarefas)
+                        {
+
+                              tarefa.ordem = index;
+
+                              tarefas.Add(tarefa);
+
+                              index++;
+                        }
+                  }
+
+                  Api.UpdateTarefaOrdem(tarefas).ContinueWith((task) =>
+                  {
+                        if (task.Status == TaskStatus.RanToCompletion)
+                        {
+                              // TODO tratar sucesso aqui
+
+                        }
+                        else if (task.IsFaulted)
+                        {
+                              // TODO tratar erro aqui
+
+                        }
+                  });
             }
       }
 }

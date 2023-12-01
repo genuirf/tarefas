@@ -107,7 +107,8 @@ namespace tarefas.Controls
 
                   if (taskCardMoving != null)
                   {
-                        TaskColumn.ComfirmMovTarefa();
+                        var gruposAlterados = TaskColumn.ComfirmMovTarefa();
+                        TaskColumnParent?.OnTarefaOrdenadaEvent(gruposAlterados);
                   }
 
                   RemoveAdorner();

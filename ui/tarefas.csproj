@@ -10,14 +10,18 @@
 
   <ItemGroup>
     <None Remove="Icones\add_18px.png" />
+    <None Remove="Icones\archive_18px.png" />
     <None Remove="Icones\calendar_18px.png" />
+    <None Remove="Icones\check_mark_18px.png" />
     <None Remove="Icones\done_18px.png" />
     <None Remove="Icones\menu_vertical_18px.png" />
   </ItemGroup>
 
   <ItemGroup>
     <Resource Include="Icones\add_18px.png" />
+    <Resource Include="Icones\archive_18px.png" />
     <Resource Include="Icones\calendar_18px.png" />
+    <Resource Include="Icones\check_mark_18px.png" />
     <Resource Include="Icones\done_18px.png" />
     <Resource Include="Icones\menu_vertical_18px.png" />
   </ItemGroup>

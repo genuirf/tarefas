@@ -2,8 +2,13 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:local="clr-namespace:tarefas"
+             xmlns:cv="clr-namespace:tarefas.Converters"
              StartupUri="/View/ListaTarefas.xaml">
     <Application.Resources>
+
+        <cv:StringTruncateConverter x:Key="StringTruncateConverter"/>
+        <cv:FalseToColapsedConverter x:Key="FalseToColapsedConverter"/>
+
         <SolidColorBrush x:Key="ControlBorderBrush"
                          Color="#FF8CD1D6" />
         <SolidColorBrush x:Key="DisabledBorderBrush"

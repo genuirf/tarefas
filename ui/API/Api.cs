@@ -67,6 +67,16 @@ namespace tarefas.API
                   return response;
             }
 
+            public static async Task<TarefaListResponse> ListTarefa(int grupo_Id)
+            {
+                  var url = $"{App.api_url}/tarefa/list_by_grupo/{grupo_Id}";
+
+                 var result = await  url.GetAsync();
+                  var response = await result.GetJsonAsync<TarefaListResponse>();
+
+                  return response;
+            }
+
 
             public static async Task<TarefaSaveResponse> AddTarefa(Tarefa tarefa)
             {
@@ -90,6 +100,19 @@ namespace tarefas.API
 
                   var result = await url.PostJsonAsync(request);
                   var response = await result.GetJsonAsync<TarefaSaveResponse>();
+
+                  return response;
+            }
+     
+            public static async Task<TarefaListResponse> UpdateTarefaOrdem(List<Tarefa> tarefas)
+            {
+                  var url = $"{App.api_url}/tarefa/update_ordem";
+
+                  var request = new TarefaUpdateOrdemRequest();
+                  request.tarefas = tarefas;
+
+                  var result = await url.PostJsonAsync(request);
+                  var response = await result.GetJsonAsync<TarefaListResponse>();
 
                   return response;
             }

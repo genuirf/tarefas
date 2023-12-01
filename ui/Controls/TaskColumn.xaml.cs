@@ -53,20 +53,32 @@ namespace tarefas.Controls
                   _origTarefaIndex = -1;
                   _destTarefaIndex = -1;
             }
-            public static void ComfirmMovTarefa()
+            public static List<TarefaGrupo> ComfirmMovTarefa()
             {
+                  List<TarefaGrupo> list = new();
+                  if (OrigTarefaGrupo != null) list.Add(OrigTarefaGrupo);
+
                   var index = DestTarefaIndex;
                   if (index < 0 && DestTarefaGrupo is TarefaGrupo tarefaGrupo1 && OrigTarefa is Tarefa tarefa1)
                   {
+                        if(!list.Contains(tarefaGrupo1)) list.Add(tarefaGrupo1);
+
+                        tarefa1.grupo_Id = tarefaGrupo1.Id;
+
                         tarefaGrupo1.tarefas.Add(tarefa1);
                         ClearMovTarefa();
                   }
                   else if (DestTarefaGrupo is TarefaGrupo tarefaGrupo  && OrigTarefa is Tarefa tarefa)
                   {
+                        if (!list.Contains(tarefaGrupo)) list.Add(tarefaGrupo);
+
+                        tarefa.grupo_Id = tarefaGrupo.Id;
+
                         tarefaGrupo.tarefas.Insert(Math.Min(index, tarefaGrupo.tarefas.Count), tarefa);
                         ClearMovTarefa();
                   }
                   
+                  return list;
             }
             public static void RevertMovTarefa()
             {
@@ -338,12 +350,27 @@ namespace tarefas.Controls
             private void BtAddTarefa_Click(object sender, RoutedEventArgs e)
             {
                   TarefaGrupo g = (TarefaGrupo)this.DataContext;
-                  AddTarefaEvent?.Invoke(this, new AddTarefaEventArgs(g, null));
+                  AddTarefaEvent?.Invoke(this, new AddEditTarefaEventArgs(g, null));
+            }
+
+            private void TaskCard_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+            {
+                  TarefaGrupo g = (TarefaGrupo)this.DataContext;
+                  Tarefa tarefa = (Tarefa)((FrameworkElement)sender).DataContext;
+                  EditTarefaEvent?.Invoke(this, new AddEditTarefaEventArgs(g, tarefa));
+            }
+
+            public void OnTarefaOrdenadaEvent(List<TarefaGrupo> grupos)
+            {
+                  TarefaOrdenadaEvent?.Invoke(this, new TarefaOrdenadaEventArgs(grupos));
             }
 
             public event EventHandler<EditarGrupoEventArgs> EditarGrupoEvent;
             public event EventHandler<EditarGrupoEventArgs> ExcluirGrupoEvent;
-            public event EventHandler<AddTarefaEventArgs> AddTarefaEvent;
+            public event EventHandler<AddEditTarefaEventArgs> AddTarefaEvent;
+            public event EventHandler<AddEditTarefaEventArgs> EditTarefaEvent;
             public event EventHandler GrupoOrdenadoEvent;
-      }
+            public event EventHandler<TarefaOrdenadaEventArgs> TarefaOrdenadaEvent;
+
+    }
 }

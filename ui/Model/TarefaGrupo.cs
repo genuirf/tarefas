@@ -20,6 +20,8 @@ namespace tarefas.Model
             [JsonIgnore]
             public ObservableCollection<Tarefa> tarefas { get { return _tarefas; } set { _tarefas = value; } }
 
+            public bool exibirConcluidos { get => Get<bool>(); set => Set(value); }
+            public bool exibirArquivados { get => Get<bool>(); set => Set(value); }
 
             public override string ToString()
             {

@@ -75,9 +75,9 @@ namespace tarefas.ViewModel
                                         tarefa.concluido = task.Result.tarefa.concluido;
                                         tarefa.arquivado = task.Result.tarefa.arquivado;
 
-                                        GrupoParent.tarefas.Add(tarefa);
+                                        App.Current.Dispatcher.Invoke(() => GrupoParent.tarefas.Add(tarefa));
 
-                                        CloseEvent?.Invoke(this, EventArgs.Empty);
+                                        App.Current.Dispatcher.Invoke(() => CloseEvent?.Invoke(this, EventArgs.Empty));
 
                                   }
                                   else if (task.IsFaulted)
@@ -102,7 +102,7 @@ namespace tarefas.ViewModel
                                         tarefa.concluido = task.Result.tarefa.concluido;
                                         tarefa.arquivado = task.Result.tarefa.arquivado;
 
-                                        CloseEvent?.Invoke(this, EventArgs.Empty);
+                                        App.Current.Dispatcher.Invoke(() => CloseEvent?.Invoke(this, EventArgs.Empty));
                                   }
                                   else if (task.IsFaulted)
                                   {
